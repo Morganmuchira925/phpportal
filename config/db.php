@@ -5,7 +5,7 @@
  * Edit the four values below (or set environment variables on your host).
  */
 
-define('DB_HOST', getenv('DB_HOST') ?: 'https://phpportal.infinityfree.io/');
+define('DB_HOST', getenv('DB_HOST') ?: 'sql311.infinityfree.com');
 define('DB_PORT', getenv('DB_PORT') ?: '3306'); 
 define('DB_NAME', getenv('DB_NAME') ?: 'if0_43524598_php_portal');
 define('DB_USER', getenv('DB_USER') ?: 'if0_43524598');

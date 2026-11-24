@@ -25,4 +25,3 @@ jobs:
             **/.git*/**
             **/tests/**
             **/docs/**
-            config/db.php
