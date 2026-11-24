@@ -5,11 +5,11 @@
  * Edit the four values below (or set environment variables on your host).
  */
 
-define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
-define('DB_PORT', getenv('DB_PORT') ?: (in_array(DB_HOST, ['localhost', '127.0.0.1'], true) ? '3307' : '3306'));
-define('DB_NAME', getenv('DB_NAME') ?: 'ip_portal');
-define('DB_USER', getenv('DB_USER') ?: 'root');
-define('DB_PASS', getenv('DB_PASS') ?: '');
+define('DB_HOST', getenv('DB_HOST') ?: 'https://phpportal.infinityfree.io/');
+define('DB_PORT', getenv('DB_PORT') ?: '3306'); 
+define('DB_NAME', getenv('DB_NAME') ?: 'if0_43524598_php_portal');
+define('DB_USER', getenv('DB_USER') ?: 'if0_43524598');
+define('DB_PASS', getenv('DB_PASS') ?: 'vambv5E5tr8');
 
 /**
  * Returns a single shared PDO connection.
