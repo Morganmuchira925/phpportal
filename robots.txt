@@ -8,4 +8,4 @@ Disallow: /includes/
 Disallow: /logs/
 Disallow: /sql/
 
-Sitemap: https://YOUR-DOMAIN/sitemap.xml
+Sitemap: https://phpportal.infinityfree.io/sitemap.xml
