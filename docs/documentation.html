@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>System Documentation - Internet Programming Portal</title>
+<style>
+body{font-family:Arial,Helvetica,sans-serif;font-size:11pt;line-height:1.45;color:#111;margin:0 10px}
+h1{font-size:24pt;color:#1d4ed8;margin-bottom:4px} h2{color:#1d4ed8;border-bottom:2px solid #1d4ed8;padding-bottom:3px;margin-top:28px;page-break-after:avoid}
+h3{margin-bottom:4px;page-break-after:avoid}
+table{border-collapse:collapse;width:100%;margin:8px 0;font-size:10pt;page-break-inside:avoid}
+th,td{border:1px solid #999;padding:5px 7px;text-align:left;vertical-align:top} th{background:#e8eefc}
+code,pre{font-family:Consolas,monospace;font-size:9.5pt;background:#f3f4f6}
+pre{padding:8px;border:1px solid #ddd;white-space:pre-wrap}
+.ph{background:#fff3bf;padding:2px 5px;border:1px dashed #b58900}
+.cover{text-align:center;padding-top:120px;page-break-after:always}
+.shot{border:2px dashed #999;height:120px;text-align:center;line-height:120px;color:#777;margin:8px 0}
+</style></head><body>
+
+<div class="cover">
+<h1>Internet Programming Portal</h1>
+<h2 style="border:0">System Documentation</h2>
+<p>Course: Internet Programming &nbsp;|&nbsp; Project: Secure PHP &amp; MySQL Web Application</p>
+<p><b>Group members</b><br><span class="ph">Name 1 – Reg No.</span><br><span class="ph">Name 2 – Reg No.</span><br><span class="ph">Name 3 – Reg No.</span></p>
+<p>Live URL: <span class="ph">https://your-site.example</span><br>Date: <span class="ph">DD Month YYYY</span></p>
+</div>
+
+<h2>1. Introduction</h2>
+<p>The Internet Programming Portal is a database-driven web application built with core PHP 8, MySQL (via PDO) and HTML5/CSS. Users register, log in, send Contact Us messages, and manage their submissions (search, sort, paginate, edit, delete, import/export CSV). Five protected pages (Dashboard, Profile, Contact Us, Submissions Directory, Information Hub) share a layout through PHP includes.</p>
+
+<h2>2. Database Design and ERD</h2>
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="430" viewBox="0 0 900 540" font-family="Arial" font-size="13">
+<defs><style>.t{fill:#1d4ed8}.b{fill:#fff;stroke:#333;stroke-width:1.5}.h{fill:#1d4ed8}.k{font-weight:bold}</style></defs>
+<g><rect class="b" x="40" y="40" width="290" height="190"/><rect class="h" x="40" y="40" width="290" height="28"/><text x="52" y="60" fill="#fff" class="k">users</text>
+<text x="52" y="92" class="k">PK id INT UNSIGNED</text><text x="52" y="114">username VARCHAR(30) UNIQUE</text><text x="52" y="136">email VARCHAR(120) UNIQUE</text><text x="52" y="158">password_hash VARCHAR(255)</text><text x="52" y="180">created_at DATETIME (idx)</text><text x="52" y="202">last_login DATETIME NULL</text></g>
+<g><rect class="b" x="560" y="40" width="300" height="150"/><rect class="h" x="560" y="40" width="300" height="28"/><text x="572" y="60" fill="#fff" class="k">user_profiles</text>
+<text x="572" y="92" class="k">PK/FK user_id INT UNSIGNED</text><text x="572" y="114">full_name VARCHAR(80)</text><text x="572" y="136">phone VARCHAR(20)</text><text x="572" y="158">bio TEXT</text><text x="572" y="180">updated_at DATETIME</text></g>
+<g><rect class="b" x="40" y="320" width="320" height="210"/><rect class="h" x="40" y="320" width="320" height="28"/><text x="52" y="340" fill="#fff" class="k">contact_submissions</text>
+<text x="52" y="372" class="k">PK id INT UNSIGNED</text><text x="52" y="394" class="k">FK user_id INT UNSIGNED</text><text x="52" y="416">name VARCHAR(80)</text><text x="52" y="438">email VARCHAR(120) (idx)</text><text x="52" y="460">subject VARCHAR(80) (idx)</text><text x="52" y="482">message TEXT</text><text x="52" y="504">created_at DATETIME (idx)</text></g>
+<g><rect class="b" x="560" y="320" width="300" height="150"/><rect class="h" x="560" y="320" width="300" height="28"/><text x="572" y="340" fill="#fff" class="k">activity_log</text>
+<text x="572" y="372" class="k">PK id INT UNSIGNED</text><text x="572" y="394" class="k">FK user_id INT UNSIGNED NULL</text><text x="572" y="416">action VARCHAR(120)</text><text x="572" y="438">ip_address VARCHAR(45)</text><text x="572" y="460">created_at DATETIME (idx)</text></g>
+<g stroke="#333" stroke-width="2" fill="none"><line x1="330" y1="110" x2="560" y2="110"/><line x1="185" y1="230" x2="185" y2="320"/><line x1="330" y1="200" x2="560" y2="380"/></g>
+<g class="t k"><text x="335" y="102">1</text><text x="540" y="102">1</text><text x="193" y="252">1</text><text x="193" y="312">N</text><text x="338" y="195">1</text><text x="530" y="375">N</text></g>
+<text x="400" y="98" fill="#555">has profile</text><text x="205" y="285" fill="#555">sends</text><text x="415" y="300" fill="#555" transform="rotate(32 415 300)">generates</text>
+</svg>
+<h3>Table summary</h3>
+<table><tr><th>Table</th><th>Purpose</th><th>Key constraints / indexes</th></tr>
+<tr><td>users</td><td>Accounts (hashed passwords, registration timestamp)</td><td>PK id; UNIQUE username, email; INDEX created_at</td></tr>
+<tr><td>user_profiles</td><td>Extra profile details (1:1 with users)</td><td>PK/FK user_id → users ON DELETE CASCADE</td></tr>
+<tr><td>contact_submissions</td><td>Contact Us messages</td><td>FK user_id → users (CASCADE); INDEX email, subject, created_at</td></tr>
+<tr><td>activity_log</td><td>Audit trail of login/CRUD events</td><td>FK user_id → users (SET NULL); INDEX created_at</td></tr></table>
+<p><b>Normalisation:</b> every table is in 3NF. Profile details are separated from credentials (users) to avoid null-heavy rows, and submissions reference the user by key instead of repeating account data. The <i>subject</i> labels are kept in a PHP multidimensional array and stored as text so the form can be changed without a migration; a lookup table could replace this later.</p>
+<p><b>MySQL functions used:</b> COUNT(), MAX(), NOW(), CONCAT(), COALESCE(), LIKE, CURRENT_TIMESTAMP. <b>phpMyAdmin</b> was used to create the database, import <code>sql/schema.sql</code>, inspect indexes/relations and export the final SQL file.</p>
+
+<h2>3. System Architecture</h2>
+<table><tr><th>Layer</th><th>Files</th><th>Role</th></tr>
+<tr><td>Bootstrap</td><td>includes/init.php</td><td>Loads config, DB, helpers; starts the session with HttpOnly + SameSite cookie flags</td></tr>
+<tr><td>Config</td><td>config/config.php, config/db.php</td><td>Constants, subject array, PDO connection (exceptions, real prepared statements)</td></tr>
+<tr><td>Helpers</td><td>includes/functions.php, queries.php</td><td>Validation (parseForm), CSRF, flash messages, logging, CSV export, query helpers</td></tr>
+<tr><td>Layout</td><td>header.php, nav.php, footer.php</td><td>Consistent HTML5 layout, SEO tags, theme cookie</td></tr>
+<tr><td>Pages</td><td>pages/*.php</td><td>Protected application pages (requireLogin())</td></tr></table>
+<h3>3.1 Sessions</h3>
+<p>On successful login the script calls <code>session_regenerate_id(true)</code> (prevents session fixation) and stores <code>$_SESSION['user_id']</code> and <code>$_SESSION['username']</code>. Every protected page calls <code>requireLogin()</code>. Logout empties <code>$_SESSION</code>, expires the session cookie, calls <code>session_destroy()</code> and redirects to the login page.</p>
+<h3>3.2 Cookies</h3>
+<p>Two non-sensitive cookies are used: <code>last_username</code> (the “Remember my username” option on the login form, 30 days) and <code>theme</code> (light/dark preference set in the Information Hub). Both are HttpOnly and SameSite=Lax. <b>Why sensitive data is never stored in cookies:</b> cookies live on the user's device, are sent with every request, and can be read or edited by the user, malware, shared-computer users or (over plain HTTP) network attackers. Storing a password, password hash or user ID/role there would let an attacker impersonate the user. Only the session ID is kept in a cookie; all sensitive data stays on the server in <code>$_SESSION</code> and MySQL.</p>
+<h3>3.3 Database calls</h3>
+<p>All queries use PDO prepared statements with bound parameters. ORDER BY columns come from a whitelist, and LIMIT/OFFSET values are bound as integers.</p>
+<h3>3.4 Superglobals</h3>
+<p><code>$_POST</code> (data-changing forms), <code>$_GET</code> (search, sort, page, string tools), <code>$_SESSION</code> (identity, CSRF token, flash), <code>$_COOKIE</code> (last username, theme), <code>$_SERVER</code> (request method, IP address, host, HTTPS flag), <code>$_FILES</code> (CSV import).</p>
+
+<h2>4. Input Validation and Security</h2>
+<table><tr><th>Threat</th><th>Defence</th><th>Where</th></tr>
+<tr><td>Invalid / missing input</td><td>Server-side <code>parseForm()</code> checks required, min/max length, regex, allowed values (<code>in</code>), match; <code>filter_var(FILTER_VALIDATE_EMAIL)</code></td><td>functions.php; every form</td></tr>
+<tr><td>SQL injection</td><td>PDO prepared statements (emulation off), whitelisted sort column</td><td>All pages; queries.php</td></tr>
+<tr><td>XSS</td><td>Output escaped with <code>htmlspecialchars()</code> through <code>e()</code></td><td>All output</td></tr>
+<tr><td>CSRF</td><td>Session token (random_bytes) in every POST form, checked with hash_equals()</td><td>All POST forms</td></tr>
+<tr><td>Weak password storage</td><td><code>password_hash()</code> / <code>password_verify()</code> (bcrypt)</td><td>register.php, login.php</td></tr>
+<tr><td>Session fixation</td><td><code>session_regenerate_id(true)</code> on login</td><td>login.php</td></tr>
+<tr><td>Account enumeration</td><td>Generic “invalid username/email or password” message</td><td>login.php</td></tr>
+<tr><td>Broken access control</td><td>requireLogin(); UPDATE/DELETE/SELECT include <code>AND user_id = :uid</code></td><td>pages/*</td></tr>
+<tr><td>Malicious upload</td><td>.csv extension, 1 MB limit, file read only via fgetcsv, never executed or stored</td><td>submissions.php</td></tr>
+<tr><td>CSV formula injection</td><td>Cells starting with = + - @ are prefixed in exports</td><td>exportCSV()</td></tr>
+<tr><td>Direct file access</td><td>.htaccess “Require all denied” in config/, includes/, logs/, sql/</td><td>folders</td></tr></table>
+
+<h2>5. Installation Guide (local)</h2>
+<ol><li>Install XAMPP (or WAMP/Laragon); start Apache and MySQL.</li>
+<li>Copy the project folder into <code>htdocs</code> (e.g. <code>C:\xampp\htdocs\ip_project</code>).</li>
+<li>Open phpMyAdmin → Import → select <code>sql/schema.sql</code> → Go.</li>
+<li>Edit <code>config/db.php</code> if your MySQL credentials differ from root / empty password.</li>
+<li>Browse to <code>http://localhost/ip_project/</code>. Sample login: <code>alice</code> / <code>Password123!</code>.</li></ol>
+<div class="shot">Screenshot: phpMyAdmin import</div><div class="shot">Screenshot: application running locally</div>
+
+<h2>6. GET vs POST in this Application</h2>
+<table><tr><th>Aspect</th><th>GET</th><th>POST</th></tr>
+<tr><td>Used for</td><td>Search/filter, sort, pagination, string tools, edit page (?id=)</td><td>Register, login, profile update, contact form, edit/delete, CSV import, theme change</td></tr>
+<tr><td>Data location</td><td>URL query string</td><td>Request body</td></tr>
+<tr><td>Side effects</td><td>None (read-only, safe, idempotent)</td><td>Changes data</td></tr>
+<tr><td>Bookmark / share</td><td>Yes – results can be bookmarked and refreshed safely</td><td>No – and refresh warns about re-submission</td></tr>
+<tr><td>Privacy</td><td>Visible in history, logs, referrer – never use for passwords</td><td>Not in URL; still needs HTTPS</td></tr>
+<tr><td>Size limits</td><td>URL length limits</td><td>Large bodies and file uploads</td></tr>
+<tr><td>CSRF</td><td>Not state-changing</td><td>Protected by token</td></tr></table>
+<p><b>Justification:</b> searching does not change data, so GET lets users bookmark and share filtered results and keeps the back button useful. Anything that creates, updates or deletes data, or carries credentials, uses POST with a CSRF token.</p>
+
+<h2>7. Framework Comparison</h2>
+<table><tr><th>Option</th><th>Advantages</th><th>Disadvantages</th></tr>
+<tr><td><b>Core PHP + MySQL (chosen)</b></td><td>No build tools; runs on any cheap/free host; teaches fundamentals (sessions, SQL, security); matches course scope</td><td>Developers must implement security, routing and structure themselves; more boilerplate; harder to scale</td></tr>
+<tr><td>Laravel (PHP)</td><td>Eloquent ORM, migrations, built-in auth, CSRF, validation, Blade; large ecosystem</td><td>Needs Composer/CLI and PHP 8+ hosting with public-folder control; steeper learning curve; hides fundamentals; heavier</td></tr>
+<tr><td>Django (Python)</td><td>“Batteries included”: ORM, admin panel, auth, security defaults; scalable</td><td>Needs Python hosting (WSGI) – rarely on free hosts; opinionated; more setup</td></tr>
+<tr><td>Flask (Python)</td><td>Lightweight, flexible, easy to learn, good for APIs/small apps</td><td>Must pick/assemble extensions (auth, ORM, forms); Python hosting required; no built-in admin</td></tr>
+<tr><td>Node.js (Express)</td><td>One language front and back; non-blocking I/O; huge npm ecosystem; real-time (WebSockets)</td><td>Needs a Node-capable host; callback/async complexity; unopinionated so structure varies; many third-party dependencies</td></tr></table>
+<p><b>Why core PHP:</b> the assignment targets fundamentals; PHP/MySQL deploys directly to free shared hosting with phpMyAdmin; and writing validation, CSRF and prepared statements by hand demonstrates understanding that a framework would hide. For a production system with a larger team we would likely choose Laravel.</p>
+
+<h2>8. Hosting Comparison and Deployment</h2>
+<table><tr><th>Criteria</th><th>InfinityFree (free)</th><th>Local XAMPP / paid shared host</th></tr>
+<tr><td>Cost</td><td>Free</td><td>XAMPP free (local only); paid hosts charge monthly</td></tr>
+<tr><td>PHP + MySQL + phpMyAdmin</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Public access</td><td>Yes (subdomain or own domain)</td><td>XAMPP: no; paid: yes</td></tr>
+<tr><td>Limits</td><td>Resource/hit limits, no SLA, limited support</td><td>Paid hosts: better performance and support</td></tr>
+<tr><td>Best for</td><td>Course demo / prototype</td><td>Development / production</td></tr></table>
+<p class="ph">Verify the current limits on each provider's website before submission and replace/extend this table with the two platforms your group actually evaluated.</p>
+<p><b>Choice:</b> <span class="ph">InfinityFree – free, supports PHP and MySQL, public URL for the demonstration.</span></p>
+<h3>Deployment steps</h3>
+<ol><li>Create hosting account and database.</li><li>Import <code>sql/schema.sql</code> through phpMyAdmin.</li><li>Edit <code>config/db.php</code> with the host credentials.</li><li>Upload files to <code>htdocs/</code> via FTP/File Manager.</li><li>Replace YOUR-DOMAIN in robots.txt and sitemap.xml; test register, login, contact, CRUD.</li></ol>
+<div class="shot">Screenshot: hosting control panel / database</div><div class="shot">Screenshot: FTP / file upload</div><div class="shot">Screenshot: live site</div>
+
+<h2>9. SEO and Social Media Optimisation Checklist</h2>
+<table><tr><th>Item</th><th>Status</th><th>Where</th></tr>
+<tr><td>Unique descriptive &lt;title&gt; on every page</td><td>Done</td><td>header.php via $pageTitle</td></tr>
+<tr><td>&lt;meta name="description"&gt; on every page</td><td>Done</td><td>header.php via $pageDescription</td></tr>
+<tr><td>Semantic HTML5 (header, nav, main, footer)</td><td>Done</td><td>includes/*</td></tr>
+<tr><td>alt text on all images</td><td>Done</td><td>logo in header.php</td></tr>
+<tr><td>Open Graph tags (og:title, og:description, og:image) + Twitter card</td><td>Done</td><td>header.php</td></tr>
+<tr><td>Clear headings (one h1 per page, logical h2/h3)</td><td>Done</td><td>All pages</td></tr>
+<tr><td>Responsive viewport meta + mobile CSS</td><td>Done</td><td>header.php, style.css</td></tr>
+<tr><td>robots.txt and sitemap.xml</td><td>Done (edit domain)</td><td>project root</td></tr>
+<tr><td>Language attribute (&lt;html lang="en"&gt;)</td><td>Done</td><td>header.php</td></tr>
+<tr><td>HTTPS</td><td>Enable on host</td><td>Hosting panel</td></tr></table>
+
+<h2>10. Testing Summary</h2>
+<table><tr><th>Test</th><th>Result</th></tr>
+<tr><td>Register valid / duplicate / invalid input</td><td>Created / rejected / field errors shown</td></tr>
+<tr><td>Login valid / wrong password / bad CSRF token</td><td>Session started / generic error / rejected</td></tr>
+<tr><td>Access protected page while logged out</td><td>Redirected to login</td></tr>
+<tr><td>Contact form with tampered subject</td><td>Rejected (“invalid value”)</td></tr>
+<tr><td>Search, sort, pagination; SQL-injection string in search/sort</td><td>Works; users table unaffected</td></tr>
+<tr><td>XSS payload in message</td><td>Displayed as escaped text</td></tr>
+<tr><td>Edit/delete another user's record</td><td>Blocked (not found)</td></tr>
+<tr><td>CSV export and import (with one invalid row)</td><td>Exported; 1 imported, 1 skipped</td></tr>
+<tr><td>Logout</td><td>Session and cookie destroyed; redirect to login</td></tr></table>
+
+<h2>11. Team Contributions and References</h2>
+<table><tr><th>Member</th><th>Contribution</th></tr><tr><td class="ph">Name 1</td><td class="ph">e.g. Database design, SQL export</td></tr><tr><td class="ph">Name 2</td><td class="ph">e.g. Authentication and security</td></tr><tr><td class="ph">Name 3</td><td class="ph">e.g. Pages, CRUD, CSV</td></tr><tr><td class="ph">Name 4</td><td class="ph">e.g. UI, SEO, deployment</td></tr></table>
+<p>References: PHP Manual (php.net), MySQL Reference Manual, OWASP Cheat Sheet Series, MDN Web Docs.</p>
+</body></html>

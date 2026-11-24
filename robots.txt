@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /index.php
+Allow: /login.php
+Allow: /register.php
+Disallow: /pages/
+Disallow: /config/
+Disallow: /includes/
+Disallow: /logs/
+Disallow: /sql/
+
+Sitemap: https://YOUR-DOMAIN/sitemap.xml

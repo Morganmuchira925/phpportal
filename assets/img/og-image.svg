@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img">
+    <defs>
+        <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0b0f19"/>
+            <stop offset="50%" stop-color="#111827"/>
+            <stop offset="100%" stop-color="#0f172a"/>
+        </linearGradient>
+        <linearGradient id="brand-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#60a5fa"/>
+            <stop offset="100%" stop-color="#2563eb"/>
+        </linearGradient>
+        <radialGradient id="aura" cx="50%" cy="30%" r="60%">
+            <stop offset="0%" stop-color="#2563eb" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#0b0f19" stop-opacity="0"/>
+        </radialGradient>
+    </defs>
+    <rect width="1200" height="630" fill="url(#bg)"/>
+    <rect width="1200" height="630" fill="url(#aura)"/>
+    <!-- Outer framing border -->
+    <rect x="40" y="40" width="1120" height="550" rx="24" fill="none" stroke="#1e293b" stroke-width="2"/>
+    <!-- Logo badge -->
+    <rect x="100" y="110" width="80" height="80" rx="20" fill="url(#brand-grad)"/>
+    <text x="140" y="162" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="34" font-weight="800" text-anchor="middle" fill="#ffffff">IP</text>
+    <!-- Tag pill -->
+    <rect x="200" y="130" width="220" height="40" rx="20" fill="#1e293b"/>
+    <text x="310" y="155" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" text-anchor="middle" fill="#93c5fd">PHP 8 &amp; MySQL Portal</text>
+    <!-- Main Headline -->
+    <text x="100" y="270" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="56" font-weight="800" fill="#f8fafc" letter-spacing="-1">Internet Programming Portal</text>
+    <!-- Description -->
+    <text x="100" y="340" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="26" font-weight="400" fill="#94a3b8">Secure, database-driven web application with authentication, full CRUD and reports</text>
+    <!-- Feature tags -->
+    <rect x="100" y="440" width="170" height="44" rx="10" fill="#1e293b" stroke="#334155"/>
+    <text x="185" y="468" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" text-anchor="middle" fill="#cbd5e1">PDO Prepared Stmts</text>
+    <rect x="290" y="440" width="160" height="44" rx="10" fill="#1e293b" stroke="#334155"/>
+    <text x="370" y="468" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" text-anchor="middle" fill="#cbd5e1">CSRF &amp; Sessions</text>
+    <rect x="470" y="440" width="160" height="44" rx="10" fill="#1e293b" stroke="#334155"/>
+    <text x="550" y="468" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" text-anchor="middle" fill="#cbd5e1">CSV Import / Export</text>
+    <rect x="650" y="440" width="150" height="44" rx="10" fill="#1e293b" stroke="#334155"/>
+    <text x="725" y="468" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" text-anchor="middle" fill="#cbd5e1">Activity Auditing</text>
+</svg>

@@ -1,0 +1,18 @@
+# Operating System files
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Editor directories and files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Runtime logs (keep logs/.htaccess, ignore runtime churn)
+logs/activity.log
+*.log
+
+# Temporary files and session dumps
+*.tmp
+temp/
