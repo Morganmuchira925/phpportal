@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $pageTitle = 'Register';
-$pageDescription = 'Create an account for the Internet Programming Portal.';
+$pageDescription = 'Create an account for PHP Portal.';
 include __DIR__ . '/includes/header.php';
 ?>
 <h1>Create an account</h1>

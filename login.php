@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $pageTitle = 'Login';
-$pageDescription = 'Log in to the Internet Programming Portal.';
+$pageDescription = 'Log in to PHP Portal.';
 include __DIR__ . '/includes/header.php';
 ?>
 <h1>Log in</h1>

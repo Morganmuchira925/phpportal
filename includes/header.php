@@ -31,7 +31,7 @@ $flash   = getFlash();
 <body>
 <header class="site-header">
     <a class="brand" href="<?= e(url('/index.php')) ?>">
-        <img src="<?= e(url('/assets/img/logo.svg')) ?>" alt="Internet Programming Portal logo" width="32" height="32">
+        <img src="<?= e(url('/assets/img/logo.svg')) ?>" alt="PHP Portal logo" width="32" height="32">
         <span><?= e(APP_NAME) ?></span>
     </a>
     <?php include __DIR__ . '/nav.php'; ?>

@@ -1,11 +1,11 @@
 <?php
 require_once __DIR__ . '/includes/init.php';
 $pageTitle = 'Welcome';
-$pageDescription = 'Register or log in to the Internet Programming Portal to send messages, manage submissions and view reports.';
+$pageDescription = 'Register/log in to the PHP Portal to send messages, manage submissions and view reports.';
 include __DIR__ . '/includes/header.php';
 ?>
 <section class="hero">
-    <h1>Welcome to the <?= e(APP_NAME) ?></h1>
+    <h1>Welcome to <?= e(APP_NAME) ?></h1>
     <p>A secure, database-driven PHP and MySQL application with authentication, full CRUD and reporting.</p>
     <p>
     <?php if (isLoggedIn()): ?>

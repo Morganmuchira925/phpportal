@@ -4,7 +4,7 @@
  * Application-wide constants and the multidimensional subject array.
  */
 
-define('APP_NAME', 'Internet Programming Portal');
+define('APP_NAME', 'PHP Portal');
 define('PER_PAGE', 5);                          // rows per page in the Submissions Directory
 define('LOG_FILE', __DIR__ . '/../logs/activity.log');
 define('REMEMBER_COOKIE', 'last_username');     // non-sensitive cookie (username only)
